@@ -1,20 +1,34 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useState } from 'react';
+import { View, StyleSheet, Button } from 'react-native';
+import TextInputComponent from './components/TextInputComponent';
+import ToneSelectionComponent from './components/ToneSelectionComponent';
+import PlaybackComponent from './components/PlaybackComponent';
 
-export default function App() {
+const App = () => {
+  const [text, setText] = useState('');
+  const [selectedTone, setSelectedTone] = useState(null);
+  const [tones, setTones] = useState([]);
+
+  const handleToneSelection = (tone) => {
+    setSelectedTone(tone);
+  };
+
   return (
     <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
+      <TextInputComponent text={text} setText={setText} />
+      <Button title="Speech to Text (Coming Soon)" onPress={() => alert('Speech to Text functionality will be available soon!')} />
+      <ToneSelectionComponent tones={['Genuine', 'Sarcastic', 'Angry']} selectedTone={selectedTone} handleToneSelection={handleToneSelection} />
+      <PlaybackComponent text={text} selectedTone={selectedTone} />
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
     justifyContent: 'center',
+    padding: 20,
   },
 });
+
+export default App;
